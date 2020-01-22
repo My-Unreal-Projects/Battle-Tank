@@ -15,11 +15,27 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
-public: 
+private_subobject: 
 
+	// PRIVATE VARIABLES
+	UPROPERTY(EditAnywhere)
+	float CrossHairXLocation = 0.5;
+
+	UPROPERTY(EditAnywhere)
+	float CrossHairYLocation = 0.3;
+
+	// PRIVATE DEFAULT METHODS
 	void BeginPlay() override;
 
 	void Tick(float DeltaTime) override;
 
+
+	// PRIVATE CUSTOM METHODS
 	ATank* GetControlledTank() const;
+
+	// Start the tank moving the barrel so taht a shot wouuld hit where
+	// crosshair intersects the world
+	void AimTowardsCrosshair();
+
+	bool GetSightRayHitLocation(FVector& HitLocation) const;
 };
