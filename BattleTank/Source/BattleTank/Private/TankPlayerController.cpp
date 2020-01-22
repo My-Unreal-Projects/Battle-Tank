@@ -18,8 +18,13 @@ void ATankPlayerController::BeginPlay()
     {
         UE_LOG(LogTemp, Warning, TEXT("Player controller possesing %s"), *(ControlledTank->GetName()));
     }
-    
-    UE_LOG(LogTemp, Warning, TEXT("I am in the BeginPlay method"));
+}
+
+void ATankPlayerController::Tick(float DeltaTime)
+{
+    Super::Tick(DeltaTime);
+    // AimTowardsCrosshair();
+    UE_LOG(LogTemp, Warning, TEXT("Player Ticking."));
 }
 
 ATank* ATankPlayerController::GetControlledTank() const
