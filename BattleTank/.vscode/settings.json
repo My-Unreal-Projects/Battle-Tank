@@ -1,7 +1,8 @@
 {
 	"files.exclude": {
-		"D:/Documents/Game and Software Projects/Unreal Projects/repos/Battle-Tank/BattleTank/.vscode": true,
-		"D:/Documents/Game and Software Projects/Unreal Projects/repos/Battle-Tank/BattleTank/Content": true,
-		"D:/Documents/Game and Software Projects/Unreal Projects/repos/Battle-Tank/BattleTank/Intermediate": true
+		"D:/Documents/Personal Projects/Unreal Projects/repos/Battle-Tank/BattleTank/.vscode": true,
+		"D:/Documents/Personal Projects/Unreal Projects/repos/Battle-Tank/BattleTank/Content": true,
+		"D:/Documents/Personal Projects/Unreal Projects/repos/Battle-Tank/BattleTank/Intermediate": true,
+		"D:/Documents/Personal Projects/Unreal Projects/repos/Battle-Tank/BattleTank/Saved": true
 	}
 }
