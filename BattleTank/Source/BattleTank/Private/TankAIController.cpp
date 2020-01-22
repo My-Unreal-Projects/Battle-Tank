@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "TankPlayerController.h"
+#include "TankAIController.h"
 
-void ATankPlayerController::BeginPlay()
+void ATankAIController::BeginPlay()
 {
     Super::BeginPlay();
 
@@ -22,9 +22,8 @@ void ATankPlayerController::BeginPlay()
     UE_LOG(LogTemp, Warning, TEXT("I am in the BeginPlay method"));
 }
 
-ATank* ATankPlayerController::GetControlledTank() const
+ATank* ATankAIController::GetControlledTank() const
 {
     return Cast<ATank>(GetPawn());
 }
-
 
