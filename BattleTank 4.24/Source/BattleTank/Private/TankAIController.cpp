@@ -3,6 +3,7 @@
 
 #include "TankAIController.h"
 
+// Called once at the beginning of the game
 void ATankAIController::BeginPlay()
 {
     Super::BeginPlay();
@@ -17,6 +18,17 @@ void ATankAIController::BeginPlay()
     else
     {
         UE_LOG(LogTemp, Warning, TEXT("AI found the player tank: %s"), *(PlayerTank->GetName()));
+    }
+}
+
+// Called every frame
+void ATankAIController::Tick(float DeltaTime)
+{
+    Super::Tick(DeltaTime);
+
+    if(GetPlayerTank())
+    {
+        GetControlledTank()->AimAt(GetPlayerTank()->GetActorLocation());
     }
 }
 
