@@ -3,15 +3,13 @@
 #pragma once
 
 #include "Engine/World.h"
-#include "GameFramework/PlayerController.h"
-#include "Tank.h"
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h"
 
-/**
- * 
- */
+// Forward declarations
+class ATank;
+
 UCLASS()
 class BATTLETANK_API ATankPlayerController : public APlayerController
 {

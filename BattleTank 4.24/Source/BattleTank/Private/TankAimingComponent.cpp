@@ -46,7 +46,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
-		UE_LOG(LogTemp, Warning, TEXT("%f: Aim solution found."), Time);
+		// UE_LOG(LogTemp, Warning, TEXT("%f: Aim solution found."), Time);
 	}
 	else // If no aiming solution found
 	{
@@ -68,7 +68,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 
 	// UE_LOG(LogTemp, Warning, TEXT("DeltaRotator is %s"), *DeltaRotator.ToString());
 
-	Barrel->Elevate(5);
+	Barrel->Elevate(1);
 }
 
 
