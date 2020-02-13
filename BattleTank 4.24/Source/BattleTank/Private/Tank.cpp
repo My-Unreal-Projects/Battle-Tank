@@ -56,7 +56,7 @@ void ATank::Fire()
 	// auto Time = GetWorld()->GetTimeSeconds();
 	// UE_LOG(LogTemp, Warning, TEXT("%f: Firing!"), Time);
 
-	bool IsReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
+	bool IsReloaded = (GetWorld()->GetTimeSeconds() - LastFireTime) > ReloadTimeInSeconds;
 
 	if(Barrel && IsReloaded)
 	{
@@ -67,7 +67,7 @@ void ATank::Fire()
 		auto SpawnedProjectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBP, SocketLocation, SocketRotation);
 
 		SpawnedProjectile->LaunchProjectile(LaunchSpeed);
-		LastFireTime = FPlatformTime::Seconds();
+		LastFireTime = GetWorld()->GetTimeSeconds();
 	}
 }
 
