@@ -23,7 +23,8 @@ private:
 	void Tick(float DeltaTime) override;
 
 	// Custom methods
-	ATank* GetControlledTank() const;
 
-	ATank* GetPlayerTank() const;	
+	// Custom variables
+	ATank* PlayerTank = nullptr;
+	ATank* ControlledTank = nullptr;
 };
