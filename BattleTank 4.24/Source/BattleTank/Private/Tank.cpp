@@ -57,7 +57,7 @@ void ATank::Fire()
 	// UE_LOG(LogTemp, Warning, TEXT("%f: Firing!"), Time);
 
 	bool IsReloaded = (GetWorld()->GetTimeSeconds() - LastFireTime) > ReloadTimeInSeconds;
-
+	IsReloaded = false; // TODO Remove this before releasing the game
 	if(Barrel && IsReloaded)
 	{
 		// Spawn projectile at the barrel socket location
