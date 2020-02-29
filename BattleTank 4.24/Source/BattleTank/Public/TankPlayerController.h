@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Cesar Molto Morilla
 
 #pragma once
 
@@ -15,8 +15,11 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
-private: 
+protected:
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	ATank* GetControlledTank() const;
 
+private: 
 	// Custom variables
 	UPROPERTY(EditDefaultsOnly)
 	float CrossHairXLocation = 0.5;
@@ -34,8 +37,6 @@ private:
 
 
 	// Custom methods
-	ATank* GetControlledTank() const;
-
 	void AimTowardsCrosshair(); // Start the tank moving the barrel so taht a shot wouuld hit where crosshair intersects the world
 
 	bool GetSightRayHitLocation(FVector& HitLocation) const;

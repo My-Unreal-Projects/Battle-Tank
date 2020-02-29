@@ -36,6 +36,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	float GetLaunchSpeed() const;
+	
 private:
 	// Sets default values for this pawn's properties
 	ATank();
