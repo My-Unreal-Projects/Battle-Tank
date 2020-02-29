@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Cesar Molto Morilla
 
 #include "TankAIController.h"
 #include "Tank.h"
@@ -29,8 +29,11 @@ void ATankAIController::Tick(float DeltaTime)
 
     if(PlayerTank)
     {
+        // Move towards player
+        MoveToActor(PlayerTank, AcceptanceRadius); // TODO Check if radius is in cm
+
         // Aim towards the player
-        ControlledTank->AimAt(PlayerTank->GetActorLocation());
+        ControlledTank->SetHitLocation(PlayerTank->GetActorLocation());
 
         // Fire if ready
         ControlledTank->Fire(); // TODO limit firing rate

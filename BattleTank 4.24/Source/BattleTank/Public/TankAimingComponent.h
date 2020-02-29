@@ -27,6 +27,10 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override; // Called every frame
 
 	// Custom methods
+	UFUNCTION(BlueprintCallable, Category = Aiming)
+	void Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
+
+	UFUNCTION(BlueprintCallable, Category = Aiming)
 	void AimAt(FVector HitLocation, float LaunchSpeed);
 
 	void SetBarrelReference(UTankBarrel* BarrelToSet);

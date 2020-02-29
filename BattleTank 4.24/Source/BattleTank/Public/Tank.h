@@ -7,6 +7,7 @@
 #include "Tank.generated.h"
 
 // Forward declarations
+class UTankMovementComponent;
 class UTankAimingComponent;
 class UTankBarrel;
 class UTankTurret;
@@ -19,21 +20,22 @@ class BATTLETANK_API ATank : public APawn
 
 public:
 	// Custom methods
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetBarrelReference(UTankBarrel* BarrelToSet);
-
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetTurretReference(UTankTurret* TurretToSet);
-
-	void AimAt(FVector HitLocation);
-
 	UFUNCTION(BlueprintCallable)
 	void Fire();
 
-protected:
-	// Custom protected variables
-	UTankAimingComponent* TankAimingComponent = nullptr;
+	void SetHitLocation(FVector HitLocation);
 
+	UFUNCTION(BlueprintCallable)
+	FVector GetHitLocation() const;
+
+	UFUNCTION(BlueprintCallable, Category = Setup)
+	void SetBarrelReference(UTankBarrel* BarrelToSet);
+
+	UFUNCTION(BlueprintCallable)
+	UTankBarrel* GetBarrelReference() const;
+	
+	UFUNCTION(BlueprintCallable)
+	float GetLaunchSpeed() const;
 private:
 	// Sets default values for this pawn's properties
 	ATank();
@@ -46,16 +48,22 @@ private:
 
 	// Custom private variables
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
-	float LaunchSpeed = 10000; // TODO Find sensible default
-
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
 	float ReloadTimeInSeconds = 3;
 
-	UPROPERTY(EditDefaultsOnly, Category = Setup)
-	TSubclassOf<AProjectile> ProjectileBP;
+	UPROPERTY(VisibleAnywhere, Category = Firing)
+	float LastFireTime = 0;
+
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	float LaunchSpeed = 10000; // TODO Find sensible default
+
+	UPROPERTY(VisibleAnywhere, Category = Firing)
+	FVector HitLocation;
 
 	// Local barrel reference for spawning projectile
-	UTankBarrel* Barrel = nullptr;
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	UTankBarrel* BarrelReference;
 
-	float LastFireTime = 0;
+	// Local reference of the projectile BP
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	TSubclassOf<AProjectile> ProjectileBP;
 };
