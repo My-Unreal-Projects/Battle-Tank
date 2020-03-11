@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Cesar Molto Morilla
 
 #pragma once
 
@@ -12,6 +12,15 @@
 class UTankBarrel; 
 class UTankTurret;
 
+// Enum for aiming state
+UENUM()
+enum class EFiringState : uint8
+{
+	Reloading,
+	Aiming,
+	Locked
+};
+
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class BATTLETANK_API UTankAimingComponent : public UActorComponent
 {
@@ -21,28 +30,25 @@ public:
 	// Constructor
 	UTankAimingComponent(); // Sets default values for this component's properties
 
-	// Default methods
-	virtual void BeginPlay() override; // Called when the game starts
-
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override; // Called every frame
-
 	// Custom methods
-	UFUNCTION(BlueprintCallable, Category = Aiming)
+	UFUNCTION(BlueprintCallable, Category = "Aiming")
 	void Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 
-	UFUNCTION(BlueprintCallable, Category = Aiming)
+	UFUNCTION(BlueprintCallable, Category = "Aiming")
 	void AimAt(FVector HitLocation, float LaunchSpeed);
 
-	void SetBarrelReference(UTankBarrel* BarrelToSet);
-
-	void SetTurretReference(UTankTurret* TurretToSet);
+protected:
+	UPROPERTY(BlueprintReadOnly, Category = "State")
+	EFiringState FiringState = EFiringState::Locked;
 
 private:
 	UTankBarrel* Barrel = nullptr;
-
 	UTankTurret* Turret = nullptr;
 
 	void MoveBarrelTowards(FVector AimDirection);
 
 	void MoveTurretTowards(FVector AimDirection);	
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float LaunchSpeed = 10000;
 };

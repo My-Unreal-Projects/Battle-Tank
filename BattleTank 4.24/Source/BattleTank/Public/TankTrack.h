@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Cesar Molto Morilla
 
 #pragma once
 
@@ -15,7 +15,7 @@ class BATTLETANK_API UTankTrack : public UStaticMeshComponent
 	GENERATED_BODY()
 	
 public:
-	UFUNCTION(BlueprintCallable, Category = Input)
+	UFUNCTION(BlueprintCallable, Category = "Input")
 	void SetThrottle(float Throttle); // Sets a throttle value between 0 and +1
 
 	// Max force per track, in Newtons

@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Cesar Molto Morilla
 
 #pragma once
 
@@ -7,7 +7,6 @@
 #include "Tank.generated.h"
 
 // Forward declarations
-class UTankMovementComponent;
 class UTankAimingComponent;
 class UTankBarrel;
 class UTankTurret;
@@ -28,7 +27,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	FVector GetHitLocation() const;
 
-	UFUNCTION(BlueprintCallable, Category = Setup)
+	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
 	UFUNCTION(BlueprintCallable)
@@ -41,30 +40,25 @@ private:
 	// Sets default values for this pawn's properties
 	ATank();
 
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 	// Custom private variables
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float ReloadTimeInSeconds = 3;
 
-	UPROPERTY(VisibleAnywhere, Category = Firing)
-	float LastFireTime = 0;
+	UPROPERTY(VisibleAnywhere, Category = "Firing")
+	float LastFireTime = 3;
 
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
-	float LaunchSpeed = 10000; // TODO Find sensible default
+	// TODO Remove once Fire is completely moved to AimingComponent class
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float LaunchSpeed = 10000;
 
-	UPROPERTY(VisibleAnywhere, Category = Firing)
+	UPROPERTY(VisibleAnywhere, Category = "Firing")
 	FVector HitLocation;
 
 	// Local barrel reference for spawning projectile
-	UPROPERTY(EditDefaultsOnly, Category = Setup)
-	UTankBarrel* BarrelReference;
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	UTankBarrel* BarrelReference; // TODO Remove this reference
 
 	// Local reference of the projectile BP
-	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	TSubclassOf<AProjectile> ProjectileBP;
 };

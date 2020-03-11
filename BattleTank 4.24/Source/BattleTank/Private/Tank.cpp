@@ -1,7 +1,6 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Cesar Molto Morilla
 
 #include "Tank.h"
-#include "TankMovementComponent.h"
 #include "TankAimingComponent.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
@@ -14,34 +13,24 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 }
 
-// Called when the game starts or when spawned
-void ATank::BeginPlay()
-{
-	Super::BeginPlay();
-}
-
-// Called to bind functionality to input
-void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-}
-
 // Custom methods
 void ATank::Fire()
 {
+	if(!ensure(BarrelReference && ProjectileBP)) {return;}
+
 	bool IsReloaded = (GetWorld()->GetTimeSeconds() - LastFireTime) > ReloadTimeInSeconds;
 	// IsReloaded = false; // TODO Remove this before releasing the game
-	if(BarrelReference && IsReloaded && ProjectileBP)
-	{
-		// Spawn projectile at the barrel socket location
-		FVector SocketLocation = BarrelReference->GetSocketLocation(FName("Projectile"));
-		FRotator SocketRotation = BarrelReference->GetSocketRotation(FName("Projectile"));
+	
+	if(!IsReloaded) {return;}
 
-		auto SpawnedProjectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBP, SocketLocation, SocketRotation);
+	// Spawn projectile at the barrel socket location
+	FVector SocketLocation = BarrelReference->GetSocketLocation(FName("Projectile"));
+	FRotator SocketRotation = BarrelReference->GetSocketRotation(FName("Projectile"));
 
-		SpawnedProjectile->LaunchProjectile(LaunchSpeed);
-		LastFireTime = GetWorld()->GetTimeSeconds();
-	}
+	auto SpawnedProjectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBP, SocketLocation, SocketRotation);
+
+	SpawnedProjectile->LaunchProjectile(LaunchSpeed);
+	LastFireTime = GetWorld()->GetTimeSeconds();
 }
 
 void ATank::SetHitLocation(FVector HitLocationToSet)

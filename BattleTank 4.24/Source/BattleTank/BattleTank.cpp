@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Cesar Molto Morilla
 
 #include "BattleTank.h"
 #include "Modules/ModuleManager.h"

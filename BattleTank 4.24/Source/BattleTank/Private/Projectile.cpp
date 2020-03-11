@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Cesar Molto Morilla
 
 #include "Projectile.h"
 
@@ -10,27 +10,24 @@ AProjectile::AProjectile()
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(FName("Projectile Component"));
 	ProjectileMovement->bAutoActivate = false;
-
 }
 
 // Called when the game starts or when spawned
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
 void AProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 // Custom methods
 void AProjectile::LaunchProjectile(float Speed)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Launching projectile at %f speed!"), Speed);
+	// UE_LOG(LogTemp, Warning, TEXT("Launching projectile at %f speed!"), Speed);
 	ProjectileMovement->SetVelocityInLocalSpace(FVector::ForwardVector * Speed);
 	ProjectileMovement->Activate();
 }
