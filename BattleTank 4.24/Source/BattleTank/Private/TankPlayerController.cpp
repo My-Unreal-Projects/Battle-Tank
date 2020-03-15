@@ -1,17 +1,16 @@
 // Copyright Cesar Molto Morilla
 
 #include "TankPlayerController.h"
-#include "Tank.h"
 #include "TankAimingComponent.h"
 
-/*%%%%%%%%%%%%%% Default methods %%%%%%%%%%%%%%%%*/
+// Default methods
 // Called once at the start of the game or when Spawned
 void ATankPlayerController::BeginPlay()
 {
     Super::BeginPlay();
 
     // Getting aiming component from controlled tank
-    auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>(); 
+    auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>(); 
     if(!ensure(AimingComponent)) {return;}
     FoundAimingComponent(AimingComponent);
 }
@@ -24,20 +23,16 @@ void ATankPlayerController::Tick(float DeltaTime)
 }
 
 // Custom methods
-ATank* ATankPlayerController::GetControlledTank() const
-{
-    return Cast<ATank>(GetPawn());
-}
-
 void ATankPlayerController::AimTowardsCrosshair()
 {
-    if(!ensure(GetControlledTank())) {return;}
+    auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>(); 
+    if(!ensure(AimingComponent)) {return;}
 
     FVector HitLocation; // Out parameter
 
     if(!GetSightRayHitLocation(HitLocation)) {return;} // Has "side-efect", is going to line trace
     
-    GetControlledTank()->SetHitLocation(HitLocation);
+    AimingComponent->AimAt(HitLocation);
 }
 
 // Get world location of linetrace through crosshair, true if hits the landscape

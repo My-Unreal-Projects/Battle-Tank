@@ -9,7 +9,7 @@
 #include "TankAIController.generated.h"
 
 // Forward declarations
-class ATank;
+class UTankAimingComponent;
 
 UCLASS()
 class BATTLETANK_API ATankAIController : public AAIController
@@ -21,12 +21,6 @@ private:
 	void BeginPlay() override;
 
 	void Tick(float DeltaTime) override;
-
-	// Custom methods
-
-	// Custom variables
-	ATank* PlayerTank = nullptr;
-	ATank* ControlledTank = nullptr;
 
 	float AcceptanceRadius = 3000; // How close the AI tank get to the player tank
 };
