@@ -43,7 +43,7 @@ public:
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
-	EFiringState FiringState = EFiringState::Aiming;
+	EFiringState FiringState = EFiringState::Reloading;
 
 private:
 	UTankBarrel* Barrel = nullptr;
@@ -57,8 +57,13 @@ private:
 
 	void MoveTurretTowards(FVector AimDirection);	
 
+	bool IsBarrelMoving();
+
+	UPROPERTY(EditDefaultsOnly, Category = "Aiming")
+	FVector AimDirection;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-	TSubclassOf<AProjectile> Projectile;
+	TSubclassOf<AProjectile> Projectile; 
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float LaunchSpeed = 10000;
