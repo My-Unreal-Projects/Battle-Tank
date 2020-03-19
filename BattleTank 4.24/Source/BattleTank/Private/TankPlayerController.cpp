@@ -10,6 +10,7 @@ void ATankPlayerController::BeginPlay()
     Super::BeginPlay();
 
     // Getting aiming component from controlled tank
+    if(!GetPawn()) {return;}
     auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>(); 
     if(!ensure(AimingComponent)) {return;}
     FoundAimingComponent(AimingComponent);
@@ -25,6 +26,7 @@ void ATankPlayerController::Tick(float DeltaTime)
 // Custom methods
 void ATankPlayerController::AimTowardsCrosshair()
 {
+    if(!GetPawn()) {return;} // e.g if not possesing
     auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>(); 
     if(!ensure(AimingComponent)) {return;}
 
@@ -32,7 +34,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 
     if(!GetSightRayHitLocation(HitLocation)) {return;} // Has "side-efect", is going to line trace
     
-    AimingComponent->AimAt(HitLocation);
+    AimingComponent->AimAt(HitLocation); // TODO Fix aiming solution to the floor
 }
 
 // Get world location of linetrace through crosshair, true if hits the landscape

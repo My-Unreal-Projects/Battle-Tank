@@ -13,6 +13,20 @@ UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class BATTLETANK_API UTankTrack : public UStaticMeshComponent
 {
 	GENERATED_BODY()
+
+	UTankTrack();
+	
+private:
+	void BeginPlay() override;
+
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
+
+	void DriveTrack();
+
+	void ApplySidewaysForce();
+
+	float CurrentThrottle = 0;
 	
 public:
 	UFUNCTION(BlueprintCallable, Category = "Input")

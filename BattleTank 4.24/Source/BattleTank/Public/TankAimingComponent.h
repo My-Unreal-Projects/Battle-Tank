@@ -19,7 +19,8 @@ enum class EFiringState : uint8
 {
 	Reloading,
 	Aiming,
-	Locked
+	Locked,
+	OutOfAmmo
 };
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
@@ -27,23 +28,8 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
 	// Constructor
 	UTankAimingComponent(); // Sets default values for this component's properties
-
-	// Custom methods
-	UFUNCTION(BlueprintCallable, Category = "Aiming")
-	void Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
-
-	UFUNCTION(BlueprintCallable, Category = "Aiming")
-	void AimAt(FVector HitLocation);
-
-	UFUNCTION(BlueprintCallable, Category = "Firing")
-	void Fire();
-
-protected:
-	UPROPERTY(BlueprintReadOnly, Category = "State")
-	EFiringState FiringState = EFiringState::Reloading;
 
 private:
 	UTankBarrel* Barrel = nullptr;
@@ -73,4 +59,27 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Firing")
 	float LastFireTime = 3;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	int32 BulletsLeft = 3;
+
+protected:
+	UPROPERTY(BlueprintReadOnly, Category = "State")
+	EFiringState FiringState = EFiringState::Reloading;
+
+public:	
+	// Custom methods
+	UFUNCTION(BlueprintCallable, Category = "Aiming")
+	void Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
+
+	UFUNCTION(BlueprintCallable, Category = "Aiming")
+	void AimAt(FVector HitLocation);
+
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+	void Fire();
+
+	EFiringState GetFiringState() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+	int32 GetBulletsLeft() const;
 };
