@@ -108,7 +108,7 @@ void UTankAimingComponent::Fire()
 		SpawnedProjectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = GetWorld()->GetTimeSeconds();
 
-		BulletsLeft--; // TODO Remove this line (?)
+		BulletsLeft--;
 	}
 }
 
