@@ -2,13 +2,13 @@
 
 #pragma once
 
-#include "Engine/World.h"
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h"
 
 // Forward declarations
 class UTankAimingComponent;
+class UWorld;
 
 /**
  * Responsible for helping the player aim.
@@ -18,11 +18,11 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
-protected:
-	UFUNCTION(BlueprintImplementableEvent, Category = "Setup") // Does not need implementation because of its MACRO
-	void FoundAimingComponent(UTankAimingComponent* AimCompRef);
+	// Default methods
+	void BeginPlay() override;
 
-private: 
+	void Tick(float DeltaTime) override;
+
 	// Custom variables
 	UPROPERTY(EditDefaultsOnly)
 	float CrossHairXLocation = 0.5;
@@ -33,11 +33,11 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	float LineTraceRange = 1000000;
 
-	// Default methods
-	void BeginPlay() override;
+protected:
+	UFUNCTION(BlueprintImplementableEvent, Category = "Setup") // Does not need implementation because of its MACRO
+	void FoundAimingComponent(UTankAimingComponent* AimCompRef);
 
-	void Tick(float DeltaTime) override;
-
+private: 
 	// Custom methods
 	void AimTowardsCrosshair(); // Start the tank moving the barrel so taht a shot wouuld hit where crosshair intersects the world
 

@@ -5,8 +5,6 @@
 
 void UTankBarrel::Elevate(float RelativeSpeed)
 {
-	// UE_LOG(LogTemp, Warning, TEXT("Inside Barrel->Elevate function"));
-
 	float DeltaTime = GetWorld()->DeltaTimeSeconds;
 
 	// Move the barrel the right amount this frame

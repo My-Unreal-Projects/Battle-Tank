@@ -1,6 +1,12 @@
 // Copyright Cesar Molto Morilla
 
 #include "Projectile.h"
+#include "GameFramework/ProjectileMovementComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "Particles/ParticleSystemComponent.h"
+#include "PhysicsEngine/RadialForceComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "GameFramework/DamageType.h"
 
 // Sets default values
 AProjectile::AProjectile()
@@ -31,13 +37,13 @@ AProjectile::AProjectile()
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
+
 	// Register delegate
     CollisionMesh->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
 }
 
 void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Projectile colliding!"));
 	LaunchBlast->Deactivate();
 	ImpactBlast->Activate();
 	ImpactForce->FireImpulse();
@@ -45,6 +51,10 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 	SetRootComponent(ImpactBlast);
 	CollisionMesh->DestroyComponent();
 
+	// Apply damage to the actors within the impact radius
+	UGameplayStatics::ApplyRadialDamage(this, ProjectileDamage, GetActorLocation(), ImpactForce->Radius, UDamageType::StaticClass(), TArray<AActor*>());
+
+	// Destroy projectile after DestroyDelay seconds
 	FTimerHandle Timer;
 	GetWorld()->GetTimerManager().SetTimer(Timer, this, &AProjectile::OnTimerExpire, DestroyDelay, false);
 }

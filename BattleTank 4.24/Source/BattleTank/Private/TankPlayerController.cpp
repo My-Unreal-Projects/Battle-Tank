@@ -2,6 +2,8 @@
 
 #include "TankPlayerController.h"
 #include "TankAimingComponent.h"
+#include "Engine/World.h"
+
 
 // Default methods
 // Called once at the start of the game or when Spawned

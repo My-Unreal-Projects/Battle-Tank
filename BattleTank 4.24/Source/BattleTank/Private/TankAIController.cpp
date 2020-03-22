@@ -2,6 +2,8 @@
 
 #include "TankAIController.h"
 #include "TankAimingComponent.h"
+#include "GameFramework/PlayerController.h"
+#include "Engine/World.h"
 
 // Called once at the beginning of the game
 void ATankAIController::BeginPlay()
