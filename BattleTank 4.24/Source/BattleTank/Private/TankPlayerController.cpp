@@ -3,6 +3,7 @@
 #include "TankPlayerController.h"
 #include "TankAimingComponent.h"
 #include "Engine/World.h"
+#include "Tank.h"
 
 
 // Default methods
@@ -14,7 +15,7 @@ void ATankPlayerController::BeginPlay()
     // Getting aiming component from controlled tank
     if(!GetPawn()) {return;}
     auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>(); 
-    if(!ensure(AimingComponent)) {return;}
+    if(!AimingComponent) {return;}
     FoundAimingComponent(AimingComponent);
 }
 
@@ -25,12 +26,24 @@ void ATankPlayerController::Tick(float DeltaTime)
     AimTowardsCrosshair();
 }
 
+void ATankPlayerController::SetPawn(APawn* InPawn)
+{
+    Super::SetPawn(InPawn);
+
+    if(!InPawn) {return;}
+    auto PossessedTank = Cast<ATank>(InPawn);
+
+    if(!PossessedTank) {return;}
+
+    PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnPossessedTankDeath);
+}
+
 // Custom methods
 void ATankPlayerController::AimTowardsCrosshair()
 {
     if(!GetPawn()) {return;} // e.g if not possesing
     auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>(); 
-    if(!ensure(AimingComponent)) {return;}
+    if(!AimingComponent) {return;}
 
     FVector HitLocation; // Out parameter
 
@@ -76,6 +89,11 @@ bool ATankPlayerController::GetLookDirection(FVector2D& ScreenLocation, FVector&
     if(!DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, CameraWorldLocation, LookDirection)) {return false;}
 
     return true; 
+}
+
+void ATankPlayerController::OnPossessedTankDeath()
+{
+    StartSpectatingOnly();
 }
 
 

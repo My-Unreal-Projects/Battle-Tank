@@ -9,6 +9,7 @@
 // Forward declarations
 class UTankAimingComponent;
 class UWorld;
+class ATank;
 
 /**
  * Responsible for helping the player aim.
@@ -18,10 +19,11 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
-	// Default methods
 	void BeginPlay() override;
 
 	void Tick(float DeltaTime) override;
+
+	void SetPawn(APawn* InPawn) override;
 
 	// Custom variables
 	UPROPERTY(EditDefaultsOnly)
@@ -46,4 +48,7 @@ private:
 	bool GetLookDirection(FVector2D& ScreenLocation, FVector& LookDirection) const;
 
 	bool GetLookVectorHitLocation(FVector& LookDirection, FVector& HitLocation) const;
+
+	UFUNCTION()
+	void OnPossessedTankDeath();
 };
