@@ -32,9 +32,18 @@ void ATankAIController::Tick(float DeltaTime)
     // Aim towards the player
     AimingComponent->AimAt(PlayerTank->GetActorLocation());
 
-    // Fire if ready
-    if(AimingComponent->GetFiringState() == EFiringState::Locked)
-        AimingComponent->Fire();
+    FHitResult HitResult;
+
+    auto StartLocation = ControlledTank->GetActorLocation() + FVector(0, 0, 500);
+    auto EndLocation = PlayerTank->GetActorLocation() + FVector(0, 0, 200);
+
+    if(GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECollisionChannel::ECC_Pawn))
+    {
+        // UE_LOG(LogTemp, Warning, TEXT("Hit result actor: %s"), *HitResult.Actor->GetName());
+        // Fire if ready
+        if(AimingComponent->GetFiringState() == EFiringState::Locked && HitResult.Actor == PlayerTank)
+            AimingComponent->Fire();
+    }
 }
 
 void ATankAIController::SetPawn(APawn* InPawn)
@@ -53,5 +62,6 @@ void ATankAIController::OnPossessedTankDeath()
 {
     if(!GetPawn()) {return;}
 
+    PossessedTankDead();
     GetPawn()->DetachFromControllerPendingDestroy();
 }

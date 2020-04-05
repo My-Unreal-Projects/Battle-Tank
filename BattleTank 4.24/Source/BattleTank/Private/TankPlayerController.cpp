@@ -7,18 +7,6 @@
 
 
 // Default methods
-// Called once at the start of the game or when Spawned
-void ATankPlayerController::BeginPlay()
-{
-    Super::BeginPlay();
-
-    // Getting aiming component from controlled tank
-    if(!GetPawn()) {return;}
-    auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>(); 
-    if(!AimingComponent) {return;}
-    FoundAimingComponent(AimingComponent);
-}
-
 // Called every frame
 void ATankPlayerController::Tick(float DeltaTime)
 {
@@ -94,6 +82,7 @@ bool ATankPlayerController::GetLookDirection(FVector2D& ScreenLocation, FVector&
 void ATankPlayerController::OnPossessedTankDeath()
 {
     StartSpectatingOnly();
+    PossessedTankDead();
 }
 
 

@@ -19,8 +19,6 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
-	void BeginPlay() override;
-
 	void Tick(float DeltaTime) override;
 
 	void SetPawn(APawn* InPawn) override;
@@ -36,8 +34,8 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 	float LineTraceRange = 1000000;
 
 protected:
-	UFUNCTION(BlueprintImplementableEvent, Category = "Setup") // Does not need implementation because of its MACRO
-	void FoundAimingComponent(UTankAimingComponent* AimCompRef);
+	UFUNCTION(BlueprintImplementableEvent, Category = "Death")
+	void PossessedTankDead();
 
 private: 
 	// Custom methods

@@ -58,6 +58,8 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 
+	// UE_LOG(LogTemp, Warning, TEXT("I am aiming!!!"));
+
 	// Calculate the OutLaunchVelocity for projectile getting to the HitLocation
 	bool SuggestedProjVeloc = UGameplayStatics::SuggestProjectileVelocity(this, OutLaunchVelocity, StartLocation, HitLocation, LaunchSpeed, false, 0, 0, ESuggestProjVelocityTraceOption::DoNotTrace);
 	

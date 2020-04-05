@@ -26,8 +26,11 @@ class BATTLETANK_API ATankAIController : public AAIController
 	void SetPawn(APawn* InPawn) override;
 
 protected:
-	UPROPERTY(EditDefaultsOnly, Category = "Setup")
-	float AcceptanceRadius = 7000; // How close the AI tank get to the player tank
+	UPROPERTY(EditAnywhere, Category = "Setup")
+	float AcceptanceRadius = 8000; // How close the AI tank get to the player tank
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Death")
+	void PossessedTankDead();
 
 private:
 	UFUNCTION()
