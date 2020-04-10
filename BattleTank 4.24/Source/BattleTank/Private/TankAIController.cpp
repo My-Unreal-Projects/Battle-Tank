@@ -34,8 +34,8 @@ void ATankAIController::Tick(float DeltaTime)
 
     FHitResult HitResult;
 
-    auto StartLocation = ControlledTank->GetActorLocation() + FVector(0, 0, 500);
-    auto EndLocation = PlayerTank->GetActorLocation() + FVector(0, 0, 200);
+    auto StartLocation = ControlledTank->GetActorLocation() + FVector(0, 0, 250);
+    auto EndLocation = PlayerTank->GetComponent
 
     if(GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECollisionChannel::ECC_Pawn))
     {
