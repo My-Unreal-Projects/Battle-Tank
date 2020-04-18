@@ -22,7 +22,8 @@ void ATankAIController::Tick(float DeltaTime)
 
     if(!PlayerTank) {return;}
     // Move towards player
-    MoveToActor(PlayerTank, AcceptanceRadius); // TODO Check if radius is in cm
+
+    MoveToActor(PlayerTank, AcceptanceRadius);
 
     if(!ControlledTank) {return;}
 
@@ -35,7 +36,7 @@ void ATankAIController::Tick(float DeltaTime)
     FHitResult HitResult;
 
     auto StartLocation = ControlledTank->GetActorLocation() + FVector(0, 0, 250);
-    auto EndLocation = PlayerTank->GetComponent
+    auto EndLocation = PlayerTank->GetActorLocation() + FVector(0, 0, 250);
 
     if(GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECollisionChannel::ECC_Pawn))
     {
