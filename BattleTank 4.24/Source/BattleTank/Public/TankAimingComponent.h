@@ -67,11 +67,14 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
 
-	EFiringState GetFiringState() const;
-
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 	int32 GetBulletsLeft() const;
 
+	UFUNCTION(BlueprintCallable, Category = "Control")
+	bool IsBarrelMoving();
+
+	EFiringState GetFiringState() const;
+	
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 	EFiringState FiringState = EFiringState::Reloading;
@@ -80,6 +83,4 @@ private:
 	void MoveBarrelTowards(FVector AimDirection);
 
 	void MoveTurretTowards(FVector AimDirection);	
-
-	bool IsBarrelMoving();
 };

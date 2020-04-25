@@ -58,14 +58,13 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 
-	// UE_LOG(LogTemp, Warning, TEXT("I am aiming!!!"));
-
 	// Calculate the OutLaunchVelocity for projectile getting to the HitLocation
 	bool SuggestedProjVeloc = UGameplayStatics::SuggestProjectileVelocity(this, OutLaunchVelocity, StartLocation, HitLocation, LaunchSpeed, false, 0, 0, ESuggestProjVelocityTraceOption::DoNotTrace);
 	
 	if(!SuggestedProjVeloc) {return;}
 
 	AimDirection = OutLaunchVelocity.GetSafeNormal();
+
 	MoveBarrelTowards(AimDirection);
 	MoveTurretTowards(AimDirection);
 }
@@ -121,6 +120,7 @@ bool UTankAimingComponent::IsBarrelMoving()
 	if(!Barrel) {return false;}
 	
 	FVector BarrelDirection = Barrel->GetForwardVector();
+
 	return !AimDirection.Equals(BarrelDirection, 0.05);
 }
 
