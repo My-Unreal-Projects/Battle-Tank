@@ -44,13 +44,18 @@ void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickTy
 	}
 }
 
-void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
+void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet, TSubclassOf<AProjectile> ProjectileToSet, float ReloadTimeToSet)
 {
 	if(!BarrelToSet) {return;}
 	Barrel = BarrelToSet;
 
 	if(!TurretToSet) {return;}
 	Turret = TurretToSet;
+
+	if(!ProjectileToSet) {return;}
+	Projectile = ProjectileToSet;
+
+	ReloadTimeInSeconds = ReloadTimeToSet;
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation)

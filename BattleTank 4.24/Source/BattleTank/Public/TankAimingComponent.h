@@ -38,16 +38,16 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Aiming")
+	UPROPERTY(VisibleAnywhere, Category = "Aiming")
 	FVector AimDirection;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	// UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	TSubclassOf<AProjectile> Projectile; 
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float LaunchSpeed = 10000;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	UPROPERTY(VisibleAnywhere, Category = "Firing")
 	float ReloadTimeInSeconds = 2;
 
 	UPROPERTY(VisibleAnywhere, Category = "Firing")
@@ -59,7 +59,7 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 public:	
 	// Custom methods
 	UFUNCTION(BlueprintCallable, Category = "Aiming")
-	void Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
+	void Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet, TSubclassOf<AProjectile> ProjectileToSet, float ReloadTimeToSet);
 
 	UFUNCTION(BlueprintCallable, Category = "Aiming")
 	void AimAt(FVector HitLocation);

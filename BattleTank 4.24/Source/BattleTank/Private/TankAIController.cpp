@@ -35,14 +35,14 @@ void ATankAIController::Tick(float DeltaTime)
 
     FHitResult HitResult;
 
-    auto StartLocation = ControlledTank->GetActorLocation() + FVector(0, 0, 250);
-    auto EndLocation = PlayerTank->GetActorLocation() + FVector(0, 0, 250);
+    auto StartLocation = ControlledTank->GetActorLocation() + FVector(0, 0, 150);
+    auto EndLocation = PlayerTank->GetActorLocation() + FVector(0, 0, 150);
 
     if(GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECollisionChannel::ECC_Pawn))
     {
         // UE_LOG(LogTemp, Warning, TEXT("Hit result actor: %s"), *HitResult.Actor->GetName());
         // Fire if ready
-        if(AimingComponent->GetFiringState() == EFiringState::Locked && HitResult.Actor == PlayerTank)
+        if(AimingComponent->GetFiringState() != EFiringState::Reloading && AimingComponent->GetFiringState() != EFiringState::OutOfAmmo && HitResult.Actor == PlayerTank)
             AimingComponent->Fire();
     }
 }
