@@ -40,7 +40,7 @@ void ATankAIController::Tick(float DeltaTime)
 
     if(GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECollisionChannel::ECC_Pawn))
     {
-        // UE_LOG(LogTemp, Warning, TEXT("Hit result actor: %s"), *HitResult.Actor->GetName());
+        // UE_LOG(LogTemp, Warning, TEXT("%s hit result actor: %s"), *this->GetPawn()->GetName(), *HitResult.Actor->GetName());
         // Fire if ready
         if(AimingComponent->GetFiringState() != EFiringState::Reloading && AimingComponent->GetFiringState() != EFiringState::OutOfAmmo && HitResult.Actor == PlayerTank)
             AimingComponent->Fire();
